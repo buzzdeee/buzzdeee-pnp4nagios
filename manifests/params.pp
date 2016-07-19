@@ -8,6 +8,8 @@ class pnp4nagios::params {
   $sysconfdir = '/etc/pnp4nagios'
   $chroot     = '/var/www'
 
+  $rrdtool_to_chroot_command = '/usr/local/share/examples/rrdtool/rrdtool-chroot enable'
+
   $user = '_icinga'
   $group = '_icinga'
   $log_type = 'syslog'      # or maybe file
@@ -25,5 +27,7 @@ class pnp4nagios::params {
   $perfdata_file = '/var/pnp4nagios/perfdata.dump'
   $perfdata_spool_filename = 'perfdata'
   $perfdata_file_processing_interval = '15'
+
+
 
 }

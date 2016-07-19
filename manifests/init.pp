@@ -61,10 +61,15 @@ class pnp4nagios (
   $perfdata_file              = $::pnp4nagios::params::perfdata_file,
   $perfdata_spool_filename    = $::pnp4nagios::params::perfdata_spool_filename,
   $perfdata_file_processing_interval = $::pnp4nagios::params::perfdata_file_processing_interval,
+  $rrdtool_to_chroot_command         = $::pnp4nagios::params::rrdtool_to_chroot_command,
 ) inherits pnp4nagios::params {
 
   include pnp4nagios::install
   include pnp4nagios::config
   include pnp4nagios::service
+
+  Class[pnp4nagios::install] ->
+  Class[pnp4nagios::config] ~>
+  Class[pnp4nagios::service]
 
 }
