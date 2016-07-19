@@ -15,4 +15,20 @@ class pnp4nagios::install {
     require => Package[$package_name],
   }
 
+  $directories = [ '/var/www/usr',
+			'/var/www/usr/local',
+			'/var/www/usr/local/lib',
+			'/var/www/usr/local/lib/kohana', ]
+
+  file { $directories:
+    ensure => 'directory',
+    before => Exec['copy kohana system'],
+  }
+
+  exec { 'copy kohana system':
+    command => '/bin/cp -r /usr/local/lib/kohana/system /var/www/usr/local/lib/kohana/system',
+    creates => '/var/www/usr/local/lib/kohana/system',
+    require => Package[$package_name],
+  }
+
 }
