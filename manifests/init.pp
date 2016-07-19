@@ -37,6 +37,7 @@
 #
 class pnp4nagios (
   $package_name = $::pnp4nagios::params::package_name,
+  $package_cgi_name = $::pnp4nagios::params::package_cgi_name,
   $package_ensure = $::pnp4nagios::params::package_ensure,
   $service_name = $::pnp4nagios::params::service_name,
   $service_ensure = $::pnp4nagios::params::service_ensure,
