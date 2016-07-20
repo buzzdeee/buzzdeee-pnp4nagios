@@ -16,13 +16,20 @@ class pnp4nagios::install {
   }
 
   $directories = [ '/var/www/usr',
-			'/var/www/usr/local',
-			'/var/www/usr/local/lib',
-			'/var/www/usr/local/lib/kohana', ]
+                   '/var/www/usr/local',
+                   '/var/www/usr/local/lib',
+                   '/var/www/usr/local/lib/kohana',
+                   '/var/www/var',
+                   '/var/www/var/www', ]
 
   file { $directories:
     ensure => 'directory',
     before => Exec['copy kohana system'],
+  }
+
+  file { '/var/www/var/www/pnp4nagios':
+    ensure => 'link',
+    target => '../../pnp4nagios',
   }
 
   exec { 'copy kohana system':
