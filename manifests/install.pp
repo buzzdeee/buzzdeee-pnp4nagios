@@ -20,11 +20,13 @@ class pnp4nagios::install {
                    '/var/www/usr/local/lib',
                    '/var/www/usr/local/lib/kohana',
                    '/var/www/var',
-                   '/var/www/var/www', ]
+                   '/var/www/var/www',
+                   '/var/www/etc/pnp4nagios',
+                   '/var/www/bin', ]
 
   file { $directories:
     ensure => 'directory',
-    before => Exec['copy kohana system'],
+    before => [ Exec['copy kohana system'], Exec['copy sh'], Exec['copy config.php'], ],
   }
 
   file { '/var/www/var/www/pnp4nagios':
@@ -35,6 +37,16 @@ class pnp4nagios::install {
   exec { 'copy kohana system':
     command => '/bin/cp -r /usr/local/lib/kohana/system /var/www/usr/local/lib/kohana/system',
     creates => '/var/www/usr/local/lib/kohana/system',
+    require => Package[$package_name],
+  }
+  exec { 'copy sh':
+    command => '/bin/cp /bin/sh /var/www/bin/sh',
+    creates => '/var/www/bin/sh',
+    require => Package[$package_name],
+  }
+  exec { 'copy config.php':
+    command => '/bin/cp /etc/pnp4nagios/config.php /var/www/etc/pnp4nagios',
+    creates => '/var/www/etc/pnp4nagios/config.php',
     require => Package[$package_name],
   }
 
