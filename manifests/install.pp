@@ -34,6 +34,12 @@ class pnp4nagios::install {
     target => '../../pnp4nagios',
   }
 
+  # Allow it to write session files here
+  # maybe setting conf['tmp'] to some other value, and then granting _icinga user only access
+  file { '/var/www/tmp':
+    mode => '1777'
+  }
+
   exec { 'copy kohana system':
     command => '/bin/cp -r /usr/local/lib/kohana/system /var/www/usr/local/lib/kohana/system',
     creates => '/var/www/usr/local/lib/kohana/system',
